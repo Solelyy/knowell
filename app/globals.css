@@ -1,27 +1,243 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 @config "../tailwind.config.js";
 @plugin "@tailwindcss/typography";
+@plugin "tailwindcss-animate";
 
 :root {
+  /* Fonts */
   --font-body: Inter, sans-serif;
   --font-heading: Poppins, sans-serif;
   --font-mono: Fira Code, monospace;
+
+  /* Radius */
+  --radius: 0.625rem;
+
+  /*BRAND COLORS*/
+  
+  /* Primary: Warm Brown - Main brand color, CTAs, active states */
+  --brand-primary: 30 51% 49%;           /* #A97C50 - HSL */
+  --brand-primary-light: 30 51% 59%;     /* Lighter for hover */
+  --brand-primary-dark: 30 51% 39%;      /* Darker variant */
+
+  /* Secondary: Soft Sage - Secondary actions, tags, subtle highlights */
+  --brand-secondary: 140 13% 54%;        /* #7C9885 */
+  --brand-secondary-light: 140 13% 64%;
+  --brand-secondary-dark: 140 13% 44%;
+
+  /* Accent: Dusty Blue - Info, links, highlights */
+  --brand-accent: 210 25% 48%;           /* #5C7A99 */
+  --brand-accent-light: 210 25% 58%;
+  --brand-accent-dark: 210 25% 38%;
+
+  /* Destructive: Terracotta - Errors, warnings, delete */
+  --brand-destructive: 10 50% 54%;       /* #C75D4D */
+
+  /* Success: Olive Green */
+  --brand-success: 90 30% 45%;           /* #6B8E4E */
+
+  /* LIGHT MODE SEMANTICS */
+  /* Surfaces */
+  --background-light: 36 33% 96%;        /* #FAF7F0 - Warm cream paper */
+  --card-light: 0 0% 100%;               /* #FFFFFF - Pure white cards */
+  --surface-elevated-light: 36 20% 98%;  /* Slightly elevated surfaces */
+
+  /* Text */
+  --text-primary-light: 210 15% 12%;     /* #1F2933 - Deep charcoal */
+  --text-secondary-light: 210 10% 40%;   /* #5A6673 - Muted text */
+  --text-muted-light: 210 8% 55%;        /* Even more muted */
+
+  /* Borders & Dividers */
+  --border-light: 30 15% 88%;            /* Warm gray border */
+  --divider-light: 30 10% 92%;           /* Subtle divider */
+
+  /* Overlays */
+  --overlay-subtle-light: rgba(0, 0, 0, 0.04);
+
+  /* Code */
+  --code-light: 210 60% 52%;
+
+  /* DARK MODE SEMANTICS */
+  /* Surfaces */
+  --background-dark: 30 10% 10%;         /* #1A1817 - Warm dark */
+  --card-dark: 30 8% 15%;                /* #282422 - Elevated dark */
+  --surface-elevated-dark: 30 8% 18%;
+
+  /* Text */
+  --text-primary-dark: 36 20% 92%;       /* #EDE8E0 - Warm off-white */
+  --text-secondary-dark: 36 10% 70%;     /* Muted warm gray */
+  --text-muted-dark: 36 8% 55%;
+
+  /* Borders & Dividers */
+  --border-dark: 30 8% 25%;
+  --divider-dark: 30 5% 20%;
+
+  /* Overlays */
+  --overlay-subtle-dark: rgba(255, 255, 255, 0.05);
+
+  /* Code */
+  --code-dark: 195 70% 75%;
+
+  /* SHADCN/UI TOKEN MAPPING (Uses brand colors above) */
+  
+  --background: hsl(var(--background-light));
+  --foreground: hsl(var(--text-primary-light));
+  
+  --card: hsl(var(--card-light));
+  --card-foreground: hsl(var(--text-primary-light));
+  
+  --popover: hsl(var(--card-light));
+  --popover-foreground: hsl(var(--text-primary-light));
+
+  --primary: hsl(var(--brand-primary));
+  --primary-foreground: hsl(36 33% 98%);
+
+  --secondary: hsl(var(--brand-secondary));
+  --secondary-foreground: hsl(0 0% 100%);
+
+  --muted: hsl(30 10% 94%);
+  --muted-foreground: hsl(var(--text-secondary-light));
+
+  --accent: hsl(var(--brand-accent));
+  --accent-foreground: hsl(0 0% 100%);
+
+  --destructive: hsl(var(--brand-destructive));
+  --destructive-foreground: hsl(0 0% 100%);
+
+  --success: hsl(var(--brand-success));
+  --success-foreground: hsl(0 0% 100%);
+
+  --border: hsl(var(--border-light));
+  --input: hsl(var(--border-light));
+  --ring: hsl(var(--brand-primary));
+
+  /* Charts */
+  --chart-1: hsl(var(--brand-primary));
+  --chart-2: hsl(var(--brand-secondary));
+  --chart-3: hsl(var(--brand-accent));
+  --chart-4: hsl(var(--brand-destructive));
+  --chart-5: hsl(var(--brand-success));
+
+  /* Sidebar */
+  --sidebar: hsl(36 25% 97%);
+  --sidebar-foreground: hsl(var(--text-primary-light));
+  --sidebar-primary: hsl(var(--brand-primary));
+  --sidebar-primary-foreground: hsl(36 33% 98%);
+  --sidebar-accent: hsl(var(--brand-accent));
+  --sidebar-accent-foreground: hsl(0 0% 100%);
+  --sidebar-border: hsl(var(--border-light));
+  --sidebar-ring: hsl(var(--brand-primary));
 }
 
-body {
-  font-family: var(--font-body);
-}
-
+/* ProseMirror headings */
 .ProseMirror h1 {
   font-size: 2rem;
   font-weight: 700;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
 }
-
 .ProseMirror h2 {
   font-size: 1.5rem;
   font-weight: 600;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
+}
+
+/* Derived inline theme */
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  /* Map CSS variables to Tailwind colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* DARK MODE */
+.dark {
+  --background: hsl(var(--background-dark));
+  --foreground: hsl(var(--text-primary-dark));
+  
+  --card: hsl(var(--card-dark));
+  --card-foreground: hsl(var(--text-primary-dark));
+  
+  --popover: hsl(var(--card-dark));
+  --popover-foreground: hsl(var(--text-primary-dark));
+
+  --primary: hsl(var(--brand-primary-light));
+  --primary-foreground: hsl(30 10% 10%);
+
+  --secondary: hsl(var(--brand-secondary));
+  --secondary-foreground: hsl(0 0% 100%);
+
+  --muted: hsl(30 8% 20%);
+  --muted-foreground: hsl(var(--text-secondary-dark));
+
+  --accent: hsl(var(--brand-accent-light));
+  --accent-foreground: hsl(0 0% 100%);
+
+  --destructive: hsl(var(--brand-destructive));
+  --destructive-foreground: hsl(0 0% 100%);
+
+  --border: hsl(var(--border-dark));
+  --input: hsl(var(--border-dark));
+  --ring: hsl(var(--brand-primary-light));
+
+  --sidebar: hsl(var(--card-dark));
+  --sidebar-foreground: hsl(var(--text-primary-dark));
+  --sidebar-border: hsl(var(--border-dark));
+}
+
+/* Base styles */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: hsl(var(--background-light));
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M 20 0 L 0 0 0 20' fill='none' stroke='%23a97c50' stroke-width='0.5' stroke-opacity='0.2'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    @apply text-foreground;
+  }
 }

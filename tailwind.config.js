@@ -1,50 +1,74 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
-  content: ["./app/**/*.{js,ts,jsx,tsx}"],
+  content: ["./app/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}", "./editor/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
-        background: {
-          light: '#FAF7F0',
-          dark: '#1F1F1F',
+        /* BRAND COLORS - for custom components */
+        brand: {
+          primary: {
+            DEFAULT: 'hsl(var(--brand-primary))',
+            light: 'hsl(var(--brand-primary-light))',
+            dark: 'hsl(var(--brand-primary-dark))',
+          },
+          secondary: {
+            DEFAULT: 'hsl(var(--brand-secondary))',
+            light: 'hsl(var(--brand-secondary-light))',
+            dark: 'hsl(var(--brand-secondary-dark))',
+          },
+          accent: {
+            DEFAULT: 'hsl(var(--brand-accent))',
+            light: 'hsl(var(--brand-accent-light))',
+            dark: 'hsl(var(--brand-accent-dark))',
+          },
         },
+        background: {
+          DEFAULT: 'var(--background)',
+          light: 'hsl(var(--background-light))',
+          dark: 'hsl(var(--background-dark))',
+        },
+        foreground: 'var(--foreground)',
         card: {
-          light: '#FFFFFF',
-          dark: '#2A2A2A',
+          DEFAULT: 'var(--card)',
+          foreground: 'var(--card-foreground)',
         },
         text: {
           primary: {
-            light: '#1F2933',
-            dark: '#F5F5F5',
+            light: 'hsl(var(--text-primary-light))',
+            dark: 'hsl(var(--text-primary-dark))',
           },
           secondary: {
-            light: '#4B5563',
-            dark: '#A1A1AA',
+            light: 'hsl(var(--text-secondary-light))',
+            dark: 'hsl(var(--text-secondary-dark))',
+          },
+          muted: {
+            light: 'hsl(var(--text-muted-light))',
+            dark: 'hsl(var(--text-muted-dark))',
           },
         },
-        accent: '#A97C50',
-        link: {
-          light: '#4A90E2',
-          dark: '#60A5FA',
+        border: {
+          DEFAULT: 'var(--border)',
+          light: 'hsl(var(--border-light))',
+          dark: 'hsl(var(--border-dark))',
         },
         divider: {
-          light: '#E5E7EB',
-          dark: '#3F3F46',
+          light: 'hsl(var(--divider-light))',
+          dark: 'hsl(var(--divider-dark))',
         },
-        border: {
-          light: '#E5E7EB',
-          dark: '#3F3F46',
-        },
-          overlay: {
+        overlay: {
           subtle: {
-            light: 'rgba(0, 0, 0, 0.04)',
-            dark: 'rgba(255, 255, 255, 0.05)',
+            light: 'var(--overlay-subtle-light)',
+            dark: 'var(--overlay-subtle-dark)',
           },
         },
         code: {
-          light: '#4281A4',
-          dark: '#82DDF0',
+          light: 'hsl(var(--code-light))',
+          dark: 'hsl(var(--code-dark))',
+        },
+        success: {
+          DEFAULT: 'var(--success)',
+          foreground: 'var(--success-foreground)',
         },
       },
       fontFamily: {
@@ -53,7 +77,11 @@ module.exports = {
         mono: ['var(--font-mono)', 'monospace'],
       },
       borderRadius: {
-        md: '8px',
+        DEFAULT: 'var(--radius)',
+        sm: 'calc(var(--radius) - 4px)',
+        md: 'calc(var(--radius) - 2px)',
+        lg: 'var(--radius)',
+        xl: 'calc(var(--radius) + 4px)',
       },
       lineHeight: {
         relaxed: '1.6',

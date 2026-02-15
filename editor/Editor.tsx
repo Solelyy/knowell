@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import Toolbar from "@/components/Toolbar";
 import { ImageBlock } from "../editor/extensions/ImageBlock";
 
+import Placeholder from "@tiptap/extension-placeholder";
+
 export default function Editor() {
   const editor = useEditor({
     extensions: [
@@ -20,7 +22,18 @@ export default function Editor() {
         allowBase64: true,
       }),
     ],
-    content: "<p>Start writing your journal...</p>",
+    content: {
+      type: "doc",
+      content: [
+        {
+          type: "heading",
+          attrs: { level: 1 },
+        },
+        {
+          type: "paragraph",
+        },
+      ],
+    },
     immediatelyRender: false,
     editorProps: {
       attributes: {
